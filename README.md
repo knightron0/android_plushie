@@ -17,7 +17,11 @@ Now, all I had to do was to collect images that did not contain Android Plushies
 I resized all of these images to 225x225 pixels as done before and my data was ready.
 
 # Building the Network
-I used Keras with Tensorflow to build my Neural Network. It consisted of 2 hidden layers of 500 nodes each with the *Relu* activation function. The output layer used the *Softmax* activation function with converted the output to a list of probabilities of each class, in this case 2.
+I used Keras with Tensorflow to build my Neural Network. It consisted of 2 hidden layers of 500 nodes each with the *Relu* activation function. The output layer used the *Softmax* activation function with converted the output to a list of probabilities of each class, in this case 2. I first created a .h5 model (using Keras) and then used the *tf.lite.TFLiteConverter* to convert it to a .tflie model.
 
 # Training the Network
 Due to a small amount of data, I ran the network through very few epochs to prevent overfitting. Using hit and trial, I decided that 20 Epochs would be the most suitable number of epochs.
+
+
+PS: Due to Github's file size restriction, the data and the model is [here](https://drive.google.com/open?id=1k3lto3AvX1WPVQIDQ6lxGr3CcJxL-12k).
+  
