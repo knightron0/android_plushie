@@ -2,7 +2,8 @@ import tensorflow as tf
 from tensorflow import keras
 import cv2 as cv
 import numpy as np
-
+from tensorflow.keras.models import model_from_json
+from tensorflow.contrib import lite
 
 traindir = '/home/sarthak/code/android_plushie/data/train/'
 testdir = '/home/sarthak/code/android_plushie/data/test/'
@@ -25,7 +26,7 @@ def createdata():
         fullpth = traindir + pthend
         img = cv.imread(fullpth)
         trainimg.append(img)
-        trainlabel.append(1)
+        trainlabel.append(0)
         # np.append(trainimg, img)
         # np.append(trainlabel, [0])
         
@@ -42,4 +43,11 @@ model = keras.Sequential([
 
 model.compile(optimizer='adam', loss ='sparse_categorical_crossentropy',metrics= ['accuracy'])
 
-model.fit(trainimg, trainlabel, epochs=1)
+model.fit(trainimg, trainlabel, epochs=20)
+
+model_file = "model.h5"
+keras.models.save_model(model, model_file)
+
+converter = tf.lite.TFLiteConverter.from_keras_model_file(model_file)
+tflite_model = converter.convert()
+open("finalmodel.tflite", "wb").write(tflite_model)
